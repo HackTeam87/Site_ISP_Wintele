@@ -1,0 +1,35 @@
+<html lang="ru" class="no-js">
+<head>
+    <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.png')}}">
+    {% if title %}
+    <title>{{ title }} -</title>
+    {% else %}
+    <title>Welcome to Wintelecom</title>
+    {% endif %}
+    {% include 'layouts/style.html' %}
+</head>
+<body>
+        <!-- Preloader -->
+        <div id="preloader">
+            <img src="{{url_for('static', filename='img/preloader.gif')}}" alt="">
+        </div>
+        <!-- Preloader-end -->
+
+		<!-- Scroll-top -->
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <i class="fas fa-angle-up"></i>
+        </button>
+        <!-- Scroll-top-end-->
+
+ <!-- main-area -->
+ <main>
+        {% block content %}
+        {% endblock %}
+</main>
+ <!-- REQUIRED SCRIPTS -->
+{% include 'layouts/script.html' %}
+</body>
+</html>
