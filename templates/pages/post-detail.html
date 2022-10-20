@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+{% block content %}  
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8">
+
+                <div class="breadcrumb-content">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Домашня</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{post_detail}}</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+
+    <!-- blog-details-area -->
+    <section class="blog-details-area pt-120 pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-details-thumb">
+                        <img src="img/blog/blog_details01.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-7 offset-md-2">
+                    <div class="blog-details-wrap">
+                        <ul class="blog-post-meta">
+                            <li><i class="far fa-folder-open"></i>Network</li>
+                            <li><i class="flaticon-user"></i>SomeOneAdmin</li>
+                            <li><i class="flaticon-calendar"></i>{{ post['created'] }}</li>
+                        </ul>
+                        <div class="standard-blog-content blog-details-content">
+                            <h2 class="title">{{ post['title'] }}</h2>
+                            {{ post['content'] |safe}}
+                            <blockquote>
+                                {{ post['short_content'] |safe}}
+                            </blockquote>
+                        </div> 
+                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- blog-details-area-end -->
+    
+ {% endblock %}      

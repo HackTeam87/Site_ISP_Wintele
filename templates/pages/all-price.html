@@ -1,0 +1,119 @@
+{% extends "layouts/base.html" %}
+{% block content %}  
+
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8">
+
+                <div class="breadcrumb-content">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Домашня</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{all_price}}</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+
+
+
+<div class="container">
+  <br>
+  <p>
+    Вінницька обл.
+    Гайсин багатоповерхівки
+  </p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Тариф</th>
+        <th scope="col">Швидкість</th>
+        <th scope="col">Ціна</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Стартовый</td>
+        <td>до 20 мб/с</td>
+        <td>99 грн/міс</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Оптимальный</td>
+        <td>до 50 мб/с</td>
+        <td>149 грн/міс</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Турбо</td>
+        <td>до 100 мб/с</td>
+        <td>179 грн/міс</td>
+      </tr>
+    </tbody>
+  </table>
+<br>
+<p>
+Вінницька обл.
+Приватний сектор Гайсин, Кисляк, Мар'янівка
+</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Лайт</td>
+        <td>до 50 мб/с</td>
+        <td>149 грн/міс</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Мега</td>
+        <td>до 100 мб/с</td>
+        <td>189 грн/міс</td>
+      </tr>
+     
+    </tbody>
+  </table>
+<br>
+<p>
+Вінницька обл.
+Куна, Карбівка
+</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Макс</td>
+      <td>до 50 мб/с</td>
+      <td>179 грн/міс</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>МегаМакс</td>
+      <td>до 100 мб/с</td>
+      <td>219 грн/міс</td>
+    </tr>
+   
+  </tbody>
+</table>
+  <br>
+</div>
+
+
+{% endblock %}
