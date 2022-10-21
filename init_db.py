@@ -24,20 +24,8 @@ with sqlite3.connect('./wintele.db') as db:
         ); '''
     cursor.execute(query_create_shop_table)   
     
-
-
-    query1 = ''' INSERT INTO shop (price, title, content) VALUES ('test0','test3', 'test4') '''
-    cursor.execute(query_create_shop_table)
-
-    # db.commit()
+    db.commit()
     
-
-    query2 = ''' SELECT * FROM shop '''
-    res = cursor.execute(query2)
-
-for p in res:
-    print(p) 
-
-# db.close()   
+db.close()   
 
 

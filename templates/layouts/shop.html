@@ -1,0 +1,53 @@
+  <!-- shop-details-area -->
+  <section class="shop-details-area pt-80 pb-15">
+    <div class="container">
+        <div class="">
+            <div class="section-title text-center mb-50">
+                <h2 class="title">Обладнання</h2>
+            </div>
+            <div class="row rel-products-active">
+                {% for product  in shop %}
+                <div class="col-xl-4 col-md-4 col-lg-4">
+                    <div class="shop-item text-center">
+                        {% if product['stock'] %}
+                        <span class="fresh-sale">Хіт</span>
+                        {% endif %}
+                        {% if product['img_link'] %}
+                        <div class="shop-thumb">
+                           <img src="{{url_for('static', filename='img/products/')+product['img_link']}}" alt="">
+                        </div>
+                        {% endif %}
+                        <div class="shop-item-content">
+                            <h6 class="title">{{product['title']}}</h6>
+                            <h3 class="price">{{product['price']}}<sup>₴</sup></h3>
+                            <!-- <p class="text--record">{{product['content']}}</p> -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#testid{{product['id']}}"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                    </button>
+                                </h2>
+                                <div id="testid{{product['id']}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <p class="text--record">{{product['content']}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="shop-rating">
+                                {% for item  in range(product['rating']) %}
+                                <i class="fal fa-star"></i>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- shop-details-area-end -->

@@ -77,6 +77,10 @@ Google Fonts
 .s-primary-color{color: var(--primary-color);}
 .s-green-color{color: var(--secondary-color);}
 .s-white-color{color: var(--secondary-color);}
+
+.text--record{
+    text-align: left;
+}
 body {
 	font-family: var(--font-family-body);
 	font-weight: normal;
@@ -1642,7 +1646,12 @@ label {
 	background-position: center;
 	background-size: cover;
 	padding: 110px 0 120px;
+    /* background: -moz-linear-gradient(90deg, rgba(242,242,242,1) 0%, rgba(242,242,242,1) 30%, rgba(0,212,255,0) 100%);
+	background: -webkit-linear-gradient(90deg, rgba(242,242,242,1) 0%, rgba(242,242,242,1) 30%, rgba(0,212,255,0) 100%);
+	background: linear-gradient(90deg, rgba(242,242,242,1) 0%, rgba(242,242,242,1) 30%, rgba(0,212,255,0) 100%); */
 }
+
+
 .video-paly a {
     display: block;
     width: 80px;
@@ -1701,7 +1710,7 @@ label {
     line-height: 1;
     display: flex;
     align-items: center;
-	color: var(--secondary-color);
+	color: var(--primary-color);
     margin-bottom: 4px;
 }
 .fact-item p {
@@ -3221,7 +3230,7 @@ label {
     justify-content: center;
     line-height: 1;
     color: var(--primary-color);
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
 	font-size: 28px;
 }
 .shop-item-content .price sup {

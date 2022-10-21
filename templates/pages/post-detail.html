@@ -22,12 +22,12 @@
 <!-- breadcrumb-area-end -->
 
     <!-- blog-details-area -->
-    <section class="blog-details-area pt-120 pb-60">
+    <section class="blog-details-area pt-90 pb-60">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="blog-details-thumb">
-                        <img src="img/blog/blog_details01.jpg" alt="">
+                        
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                             <li><i class="flaticon-calendar"></i>{{ post['created'] }}</li>
                         </ul>
                         <div class="standard-blog-content blog-details-content">
-                            <h2 class="title">{{ post['title'] }}</h2>
+                            <h3 class="title">{{ post['title'] }}</h3>
                             {{ post['content'] |safe}}
                             <blockquote>
                                 {{ post['short_content'] |safe}}

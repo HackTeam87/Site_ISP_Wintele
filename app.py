@@ -1,8 +1,10 @@
 import sqlite3
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
 
+
 app = Flask(__name__)
+
 
 def get_db_connection():
     conn = sqlite3.connect('wintele.db')
@@ -14,8 +16,9 @@ def get_db_connection():
 def index():
      conn = get_db_connection()
      posts = conn.execute('SELECT * FROM posts LIMIT 2').fetchall()
+     shop = conn.execute('SELECT * FROM shop').fetchall()
      conn.close()
-     return render_template('index.html', posts=posts)
+     return render_template('index.html', shop=shop, posts=posts)
 
 @app.route("/about-us")
 def about_us():
@@ -32,6 +35,11 @@ def contact():
      contact = 'Контакти'
      return render_template('pages/contact.html', contact=contact)   
 
+@app.route("/shop")
+def shop():
+     shop = 'Магазин'
+     return render_template('layouts/shop.html', shop=shop)       
+
 
 @app.route("/post-detail/<int:id>", methods = ['GET', 'POST'])
 def post_detail(id):
@@ -47,7 +55,40 @@ def all_blog_posts():
      conn = get_db_connection()
      posts = conn.execute('SELECT * FROM posts').fetchall()
      conn.close()
-     return render_template('pages/all-blog-posts.html', all_blog_posts=all_blog_posts, posts=posts)           
+     return render_template('pages/all-blog-posts.html', all_blog_posts=all_blog_posts, posts=posts)
+
+
+@app.route("/get_contact",methods = ['POST'])
+def get_contact():
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+    email = request.form.get('email')
+    options = request.form.get('options')
+    message = request.form.get('message')
+
+    print(name)
+    print(phone)
+    print(email)
+    print(options)
+    print(message)
+
+#     if request.method == 'POST':
+#         file = request.files['image']
+#         if file and allowed_file(file.filename):
+#             # filename = secure_filename(file.filename)
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file))
+
+#             p = Post(title=title,tag_id=tag,body=body,file=img)
+#             db.session.add(p)
+#             db.session.commit()
+#         else:
+#             p = Post(title=title,tag_id=tag,body=body)
+#             db.session.add(p)
+#             db.session.commit()
+
+
+    return redirect('/contact')
+
 
 
 
