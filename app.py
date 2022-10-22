@@ -1,9 +1,29 @@
+import os
 import sqlite3
-from flask import Flask, render_template, url_for, request, redirect
+import requests
+import telebot
+from flask import Flask, render_template, url_for, request, redirect, flash
+from config import Configuration
 from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
+from flask_simple_captcha import CAPTCHA
 
 
 app = Flask(__name__)
+app.config.from_object(Configuration)
+# app.secret_key = b'_Wintele2022'
+
+# for i in app.config:
+#      print(i)
+
+# CAPTCHA = CAPTCHA(config=config.CAPTCHA_CONFIG)
+# CAPTCHA.init_app(app.config['SECRET_CAPTCHA_KEY'])
+
+
+
+bot_token = os.getenv('BOT_TOKEN', default=None)
+bot = telebot.TeleBot(bot_token)
+chat_id = os.getenv('CHAT_ID', default=None)
+
 
 
 def get_db_connection():
@@ -14,11 +34,14 @@ def get_db_connection():
 
 @app.route("/")
 def index():
+     ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+     ip_title = ' Ваш IP: ' + ip
+
      conn = get_db_connection()
      posts = conn.execute('SELECT * FROM posts LIMIT 2').fetchall()
      shop = conn.execute('SELECT * FROM shop').fetchall()
      conn.close()
-     return render_template('index.html', shop=shop, posts=posts)
+     return render_template('index.html', ip=ip, ip_title=ip_title, shop=shop, posts=posts)
 
 @app.route("/about-us")
 def about_us():
@@ -29,11 +52,6 @@ def about_us():
 def all_price():
      all_price = 'Всі тарифи'
      return render_template('pages/all-price.html' , all_price=all_price)              
-
-@app.route("/contact")
-def contact():
-     contact = 'Контакти'
-     return render_template('pages/contact.html', contact=contact)   
 
 @app.route("/shop")
 def shop():
@@ -58,6 +76,12 @@ def all_blog_posts():
      return render_template('pages/all-blog-posts.html', all_blog_posts=all_blog_posts, posts=posts)
 
 
+@app.route("/contact")
+def contact():
+     contact = 'Контакти'
+     return render_template('pages/contact.html', contact=contact)   
+
+
 @app.route("/get_contact",methods = ['POST'])
 def get_contact():
     name = request.form.get('name')
@@ -66,30 +90,19 @@ def get_contact():
     options = request.form.get('options')
     message = request.form.get('message')
 
-    print(name)
-    print(phone)
-    print(email)
-    print(options)
-    print(message)
+    m = f''' 
+            Заявка з сайту Wintele.com.ua\n
+            \n ФИО: {name}  Причина: {options}
+            \n Телефон: {phone}  Почта: {email}
+            \n Комментарий: {message}
+          '''
 
-#     if request.method == 'POST':
-#         file = request.files['image']
-#         if file and allowed_file(file.filename):
-#             # filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file))
-
-#             p = Post(title=title,tag_id=tag,body=body,file=img)
-#             db.session.add(p)
-#             db.session.commit()
-#         else:
-#             p = Post(title=title,tag_id=tag,body=body)
-#             db.session.add(p)
-#             db.session.commit()
-
-
-    return redirect('/contact')
-
-
+    if request.method == 'POST':
+        if len(name):
+            flash('Дякую! Ми зателефонуємо Вам найближчим часом.')
+            print(m)
+            bot.send_message(chat_id, m)
+            return redirect(url_for('contact'))
 
 
 if __name__ == "__main__":

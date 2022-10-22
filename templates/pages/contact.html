@@ -24,12 +24,24 @@
 
 
 <!-- contact-area -->
-<section class="contact-area pt-80 pb-120">
+<section class="contact-area pt-60 pb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                  {% for message in messages %}
+                  <div class="alert alert-info" role="alert">
+                    {{ message }}
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+                  {% endwith %}
+
                 <div class="contact-title">
-                    <h3 class="title">Зв'язатися</h3>
+                    <!-- <h3 class="title">Зв'язатися</h3> -->
+                    <p>Залиште свій номер телефону і чекайте дзвінка</p>
                 </div>
                 <form action="/get_contact"  method="post" class="contact-form" enctype="multipart/form-data">
                     <div class="row">
@@ -93,7 +105,7 @@
 <!-- contact-area-end -->
 
 <!-- contact-map -->
-<div class="pb-80">
+<div class="pb-90">
 <div id="contact-map">
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2627.3976733754957!2d29.376220215564263!3d48.812473379283006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40cd7d0ed083fe87%3A0xc71ac77e85d2d983!2z0L_Quy4gMS3Qs9C-INCc0LDRjywgMiwg0JPQsNC50YHQuNC9LCDQktC40L3QvdC40YbQutCw0Y8g0L7QsdC70LDRgdGC0YwsIDIzNzAw!5e0!3m2!1sru!2sua!4v1666078642022!5m2!1sru!2sua"  allowfullscreen loading="lazy"></iframe>
 </div>
