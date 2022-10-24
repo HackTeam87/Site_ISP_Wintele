@@ -3188,8 +3188,13 @@ label {
     box-shadow: none;
 }
 .shop-item {
+    border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	transition: .3s linear;
     border: 1px solid #E1E6EE;
-    border-radius: 3px;
     padding: 30px;
     position: relative;
     overflow: hidden;

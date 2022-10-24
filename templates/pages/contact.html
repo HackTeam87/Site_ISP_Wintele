@@ -29,25 +29,27 @@
         <div class="row">
             <div class="col-lg-8">
 
-                  {% with messages = get_flashed_messages() %}
+                  {% with messages = get_flashed_messages(with_categories=true) %}
                   {% if messages %}
-                  {% for message in messages %}
-                  <div class="alert alert-info" role="alert">
+                  {% for category, message in messages %}
+                  <div class="alert {{ category }} alert-dismissible fade show" role="alert">
                     {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                   {% endfor %}
                   {% endif %}
                   {% endwith %}
-
+                 
                 <div class="contact-title">
                     <!-- <h3 class="title">Зв'язатися</h3> -->
-                    <p>Залиште свій номер телефону і чекайте дзвінка</p>
+                    <p>Залиште свій номер телефону і чекайте дзвінка</p>                    
                 </div>
+
                 <form action="/get_contact"  method="post" class="contact-form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-grp">
-                                <input name="name" type="text" id="name" autocomplete="off" required>
+                                <input name="name" type="text" id="name" value="{{ request.form['name'] }}"autocomplete="off" required>
                                 <label for="name">Ім'я Прізвище*</label>
                             </div>
                         </div>
@@ -75,11 +77,13 @@
                             </div>
                         </div>
                     </div>
+                
                     <div class="form-grp">
-                        <textarea name="message" id="message" autocomplete="off"></textarea>
-                        <label for="message">Messages</label>
+                        {{ captcha_html(captcha) | safe}}     
                     </div>
+
                     <button type="submit" class="btn">Надіслати</button>
+
                 </form>
             </div>
             <div class="col-lg-4">

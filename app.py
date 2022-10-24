@@ -10,14 +10,9 @@ from flask_simple_captcha import CAPTCHA
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
-# app.secret_key = b'_Wintele2022'
 
-# for i in app.config:
-#      print(i)
-
-# CAPTCHA = CAPTCHA(config=config.CAPTCHA_CONFIG)
-# CAPTCHA.init_app(app.config['SECRET_CAPTCHA_KEY'])
-
+CAPTCHA = CAPTCHA(config=app.config['CAPTCHA_CONFIG'])
+app = CAPTCHA.init_app(app)
 
 
 bot_token = os.getenv('BOT_TOKEN', default=None)
@@ -76,33 +71,48 @@ def all_blog_posts():
      return render_template('pages/all-blog-posts.html', all_blog_posts=all_blog_posts, posts=posts)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=['GET','POST'])
 def contact():
      contact = 'Контакти'
-     return render_template('pages/contact.html', contact=contact)   
+
+     if request.method == 'GET':
+        captcha = CAPTCHA.create()
+        return render_template('pages/contact.html', contact=contact, captcha=captcha)
+    
 
 
 @app.route("/get_contact",methods = ['POST'])
-def get_contact():
-    name = request.form.get('name')
-    phone = request.form.get('phone')
-    email = request.form.get('email')
-    options = request.form.get('options')
-    message = request.form.get('message')
+def get_contact():       
+    if request.method == 'POST':
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        email = request.form.get('email')
+        options = request.form.get('options')
+        c_hash = request.form.get('captcha-hash')
+        c_text = request.form.get('captcha-text')
 
-    m = f''' 
+        m = f''' 
             Заявка з сайту Wintele.com.ua\n
             \n ФИО: {name}  Причина: {options}
             \n Телефон: {phone}  Почта: {email}
-            \n Комментарий: {message}
-          '''
+          ''' 
 
-    if request.method == 'POST':
-        if len(name):
-            flash('Дякую! Ми зателефонуємо Вам найближчим часом.')
-            print(m)
+        if CAPTCHA.verify(c_text, c_hash) and len(name):
+            flash('Дякую! Ми зателефонуємо Вам найближчим часом.', 'alert-primary')
             bot.send_message(chat_id, m)
             return redirect(url_for('contact'))
+        else:
+            flash('Введіть captcha', 'alert-danger')
+            return redirect(url_for('contact')) 
+
+
+@app.route("/test")
+def test():
+     return render_template('pages/prices/price1.html' )     
+
+@app.route("/test2")
+def test2():
+     return render_template('pages/prices/test2.html' )              
 
 
 if __name__ == "__main__":

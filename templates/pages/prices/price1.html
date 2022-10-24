@@ -1,0 +1,170 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+
+{% include 'layouts/slider.html' %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+<style>
+  .tab-button {
+    padding: 6px 10px;
+    /* border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
+          border: 1px solid #ccc; */
+    cursor: pointer;
+    background: #f0f0f0;
+    margin-bottom: -1px;
+    margin-right: -1px;
+  }
+
+  .tab-button:hover {
+    background: #e0e0e0;
+  }
+
+  .tab-button.active {
+    background: #e0e0e0;
+  }
+
+  .tab {
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+  }
+</style>
+
+<section class="pt-80 pb-60" style="background-color:#ebeff2;">
+
+
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+
+      <div class="wrapper" id="dynamic-price">
+        {% raw %}
+        <form action="/get_contact" method="post" class="contact-form" enctype="multipart/form-data">
+          <div class="row row-2 mb-30">
+            <section>
+              <div class="pl-40 pr-20 card">
+                <div class="center-line">
+                  <a href="#" class="scroll-icon">1</a>
+                </div>
+                <div class="card-body">
+                  <div class="mt-30 mb-40">
+                    <h3 class="card-title text-center">ВИБЕРІТЬ ВАШЕ МІСТО:</h3>
+                  </div>
+                  <div class="row">
+                    <div class="form-grp">
+                      <span class="badge bg-light btn" v-for="tab in tabs" v-bind:key="tab"
+                        v-bind:class="['active', { active: currentTab === tab }]" v-on:click="currentTab = tab">
+                        <a href="#step-2" class=""> {{ tab.location }}</a>
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- <blog-post  v-bind:is="currentTabComponent"></blog-post> -->
+          <div class="row row-2 mb-30" id="step-2">
+            <section >
+              <div class="pl-40 pr-20 card">
+                  <div class="center-line">
+                      <a href="#" class="scroll-icon">2</a>
+                  </div>
+                  <div class="card-body" >
+                      <div class="mt-30 mb-40">
+                          <h3 class="card-title text-center">ВИБЕРІТЬ ТАРИФНИЙ ПЛАН:</h3>
+                      </div>  
+                      <div class="table-responsive">  
+
+           <table class="table table-hover table-sm" v-for="tab in tabs" v-if="tab.id === currentTab.id">
+            <thead class="table-light">
+              <tr>
+                  <th scope="col">#  {{tab.location}}</th>
+                  <th scope="col">Тариф</th>
+                  <th scope="col">Швидкість</th>
+                  <th scope="col">Ціна</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="i in tab.prices">
+                <td><span>{{i.price_id}}</span></td>
+                <td><span>{{i.name}}</span></td>
+                <td><span>{{i.speed}}</span>мб/с</td>
+                <td><span>{{i.price}}</span>грн/міс</td>
+              </tr>             
+            </tbody>
+          </table> `
+        </div>
+        </form>
+        {% endraw %}
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+<script>
+  new Vue({
+   
+    el: "#dynamic-price",
+    data: {
+      currentTab: "0",
+      tabs: [
+             {'id': 0,
+              'location':'Гайсин багатоповерхівки',
+              'prices':[
+                  {'price_id':1, 'name':'Стартовый','price': 99, 'speed': 20},
+                  {'price_id':2, 'name':'Оптимальный','price': 149, 'speed': 50},
+                  {'price_id':3, 'name':'Турбо','price': 179, 'speed': 100}
+                       ]
+             },
+
+             {'id': 1,
+              'location':'Гайсин приватний сектор',
+              'prices':[
+                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
+                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
+                       ]
+             },
+             
+             {'id': 2,
+              'location':'с.Кисляк',
+              'prices':[
+                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
+                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
+                       ]
+             },
+
+             {'id': 4,
+              'location':"с. Мар'янівка",
+              'prices':[
+                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
+                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
+                       ]
+             },  
+      ],
+    },
+    methods: {
+      getPrice(price){
+      Object.keys(price).forEach(function(key) {return price[key]['name'];
+});
+      //  console.log(typeof(price))
+    }},
+    computed: {
+      currentTabComponent: function () {
+        console.log(this.currentTab)
+        return "tab-" + this.currentTab.id;
+      }
+    }
+  });
+</script>
+
+{% include 'layouts/video.html' %}
+{% include 'layouts/shop.html' %}
+{% include 'layouts/cta.html' %}
+{% include 'layouts/faq.html' %}
+{% include 'layouts/blog.html' %}
+
+
+{% endblock %}

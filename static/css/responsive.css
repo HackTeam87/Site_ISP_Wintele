@@ -464,9 +464,7 @@
 #contact-map {
     height: 440px;
 }
-.shop-item {
-    padding: 30px 25px;
-}
+
 .shop-details-content {
     margin-left: 20px;
 }
@@ -1119,8 +1117,8 @@
 }
 .shop-item {
     padding: 30px 25px;
-    max-width: 300px;
-    margin: 0 auto 30px;
+    /* max-width: 300px; */
+    /* margin: 0 auto 30px; */
 }
 .shop-sidebar {
     padding: 30px 25px;
@@ -1300,7 +1298,7 @@
 }
 .shop-item {
     padding: 30px 30px;
-    max-width: 350px;
+    /* max-width: 350px; */
 }
 .shop-item .fresh-sale {
     left: -11%;

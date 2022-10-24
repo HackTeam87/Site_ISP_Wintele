@@ -1,0 +1,102 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+        <style>
+            .activate {
+                color: #ffffff;
+                background-color: #002244;
+            }
+
+            .activate span {
+                color: #ffffff;
+            }
+        </style>
+        {% raw %}
+        <div id="app">
+            <v-col cols="12" sm="3" md="3" lg="3" v-cloak>
+
+                <h3 class="heading" style="color:#002244;">Швидкість 30</h3>
+                <div class="services_price">
+
+                    <div class="services__item" v-for="(service,index) in prices.price_30" :key="index"
+                        v-on:click="toggleActive(service)" v-bind:class="{ 'activate' : service.activate }">
+                        <span>{{ service.name }}</span> <span>{{ service.price | currency }}</span>
+                    </div>
+                </div>
+
+                <p class="total">
+                    <span>Разом:</span> <span>{{ total_30() | currency }}/м</span>
+                </p>
+
+            </v-col>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    prices: {
+                        price_30: [
+                            {
+                                name: '30 Мбіт/с',
+                                price: 120,
+                                activate: true
+                            },
+                            {
+                                name: '+ Зовнішній IP',
+                                price: 30,
+                                activate: false
+                            },
+                            {
+                                name: '+ TV 194 канали',
+                                price: 0,
+                                activate: true
+                            },
+                            {
+                                name: '+ TV 247 каналів',
+                                price: 50,
+                                activate: false
+                            },
+                            {
+                                name: '+ TV 249 каналів + Футбол',
+                                price: 80,
+                                activate: false
+                            },
+                            {
+                                name: '+ TV 261 канали',
+                                price: 100,
+                                activate: false
+                            },
+                            {
+                                name: '+ TV 263 каналів + Футбол',
+                                price: 120,
+                                activate: false
+                            }
+                        ],
+                    }
+                },
+                methods: {
+                    toggleActive: function (s) {
+                        s.activate = !s.activate;
+                    },
+                    total_30: function () {
+                        var total = 0;
+                        this.prices.price_30.forEach(function (s) {
+                            if (s.activate) {
+                                total += s.price;
+                            }
+                        });
+                        return total
+                    },
+                }
+            })
+        </script>
+
+        {% endraw %}
+    </div>
+</div>
+
+
+{% endblock %}
