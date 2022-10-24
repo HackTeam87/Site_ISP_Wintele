@@ -2,32 +2,6 @@
 {% block content %}
 
 {% include 'layouts/slider.html' %}
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
-<style>
-  .tab-button {
-    padding: 6px 10px;
-    /* border-top-left-radius: 3px;
-          border-top-right-radius: 3px;
-          border: 1px solid #ccc; */
-    cursor: pointer;
-    background: #f0f0f0;
-    margin-bottom: -1px;
-    margin-right: -1px;
-  }
-
-  .tab-button:hover {
-    background: #e0e0e0;
-  }
-
-  .tab-button.active {
-    background: #e0e0e0;
-  }
-
-  .tab {
-    /* border: 1px solid #ccc; */
-    padding: 10px;
-  }
-</style>
 
 <section class="pt-80 pb-60" style="background-color:#ebeff2;">
 
@@ -61,38 +35,93 @@
               </div>
             </section>
           </div>
-          <!-- <blog-post  v-bind:is="currentTabComponent"></blog-post> -->
-          <div class="row row-2 mb-30" id="step-2">
-            <section >
-              <div class="pl-40 pr-20 card">
-                  <div class="center-line">
-                      <a href="#" class="scroll-icon">2</a>
-                  </div>
-                  <div class="card-body" >
-                      <div class="mt-30 mb-40">
-                          <h3 class="card-title text-center">ВИБЕРІТЬ ТАРИФНИЙ ПЛАН:</h3>
-                      </div>  
-                      <div class="table-responsive">  
 
-           <table class="table table-hover table-sm" v-for="tab in tabs" v-if="tab.id === currentTab.id">
-            <thead class="table-light">
-              <tr>
-                  <th scope="col">#  {{tab.location}}</th>
-                  <th scope="col">Тариф</th>
-                  <th scope="col">Швидкість</th>
-                  <th scope="col">Ціна</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="i in tab.prices">
-                <td><span>{{i.price_id}}</span></td>
-                <td><span>{{i.name}}</span></td>
-                <td><span>{{i.speed}}</span>мб/с</td>
-                <td><span>{{i.price}}</span>грн/міс</td>
-              </tr>             
-            </tbody>
-          </table> `
-        </div>
+
+          <!-- <blog-post  v-bind:is="currentTabComponent"></blog-post> -->
+          <div class="row row-2 mb-30" id="step-2" v-for="tab in tabs" v-if="tab.id === currentTab.id">
+            <section>
+              <div class="pl-40 pr-20 card">
+                <div class="center-line">
+                  <a href="#" class="scroll-icon">2</a>
+                </div>
+                <div class="card-body">
+                  <div class="mt-30 mb-40">
+                    <h3 class="card-title text-center">ВИБЕРІТЬ ТАРИФНИЙ ПЛАН:</h3>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                      <thead class="table-light">
+                        <tr :class="{check_1: checked}">
+                          <th scope="col"># {{tab.location}}</th>
+                          <th scope="col">Швидкість</th>
+                          <th scope="col">Ціна</th>
+                          <th scope="col">Тариф</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="i in tab.prices">
+                          <td>
+                            <div class="form-check p-10">
+                              <a href="#step-3">
+                                <input class="form-check-input" type="radio" name="price_id" @click="Checker">
+                              </a>   
+                            </div>
+                          </td>
+                          <td><span>{{i.speed}}</span>мб/с</td>
+                          <td><span>{{i.price}}</span>грн/міс</td>
+                          <td><span>{{i.name}}</span></td>
+                          <td>
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="row row-2 mb-30" id="step-3" v-if="checked">
+            <section>
+              <div class="pl-40 pr-20 card">
+                <div class="center-line">
+                  <a href="#" class="scroll-icon">3</a>
+                </div>
+                <div class="card-body">
+                  <div class="mt-30 mb-40">
+                    <h3 class="card-title text-center">ВАШІ ПЕРСОНАЛЬНІ ДАНІ:</h3>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-grp">
+                            <input name="name" type="text" id="name" autocomplete="off" required>
+                            <label for="name">Ім'я</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-grp">
+                          <input name="name" type="text" id="name" autocomplete="off" required>
+                          <label for="name">Ім'я</label>
+                      </div>
+                  </div>
+                    <div class="col-md-4">
+                        <div class="form-grp">
+                            <input name="phone" type="number" id="phone" autocomplete="off" required>
+                            <label for="phone">Телефон</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-5 col-lg-4 mx-auto">
+                      <button class="btn btn-primary" type="button" style="text-align:center;">Надіслати</button>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
         </form>
         {% endraw %}
       </div>
@@ -106,51 +135,89 @@
 
 <script>
   new Vue({
-   
+
     el: "#dynamic-price",
     data: {
+      checked: false,
       currentTab: "0",
       tabs: [
-             {'id': 0,
-              'location':'Гайсин багатоповерхівки',
-              'prices':[
-                  {'price_id':1, 'name':'Стартовый','price': 99, 'speed': 20},
-                  {'price_id':2, 'name':'Оптимальный','price': 149, 'speed': 50},
-                  {'price_id':3, 'name':'Турбо','price': 179, 'speed': 100}
-                       ]
-             },
+        {
+          'id': 0,
+          'location': 'Гайсин багатоповерхівки',
+          'prices': [
+            { 'price_id': 1, 'name': 'Стартовый', 'price': 99, 'speed': 20 },
+            { 'price_id': 2, 'name': 'Оптимальный', 'price': 149, 'speed': 50 },
+            { 'price_id': 3, 'name': 'Турбо', 'price': 179, 'speed': 100 }
+          ]
+        },
+  
+        {
+          'id': 1,
+          'location': 'Гайсин приватний сектор',
+          'prices': [
+            { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+            { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+          ]
+        },
 
-             {'id': 1,
-              'location':'Гайсин приватний сектор',
-              'prices':[
-                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
-                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
-                       ]
-             },
-             
-             {'id': 2,
-              'location':'с.Кисляк',
-              'prices':[
-                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
-                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
-                       ]
-             },
+        {
+          'id': 2,
+          'location': 'с.Крутогорб',
+          'prices': [
+            { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+            { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+          ]
+        },
 
-             {'id': 4,
-              'location':"с. Мар'янівка",
-              'prices':[
-                  {'price_id':1, 'name':'Лайт','price': 149, 'speed': 50},
-                  {'price_id':2, 'name':'Мега','price': 189, 'speed': 100},
-                       ]
-             },  
+        {
+          'id': 3,
+          'location': 'с.Карбівка',
+          'prices': [
+            { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+            { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+          ]
+        },
+        {
+          'id': 4,
+          'location': 'с.Куна',
+          'prices': [
+            { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+            { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+          ]
+        },
+        {
+          'id': 5,
+          'location': 'с.Кисляк',
+          'prices': [
+            { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+            { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+          ]
+        },
+
+        {
+          'id': 6,
+          'location': "с. Мар'янівка",
+          'prices': [
+            { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+            { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+          ]
+        },
+
+        {
+          'id': 7,
+          'location': 'с.Михпйлівка',
+          'prices': [
+            { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+            { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+          ]
+        },
       ],
     },
     methods: {
-      getPrice(price){
-      Object.keys(price).forEach(function(key) {return price[key]['name'];
-});
-      //  console.log(typeof(price))
-    }},
+      Checker: function () {
+        this.checked = !this.checked;
+      }
+    },
     computed: {
       currentTabComponent: function () {
         console.log(this.currentTab)
