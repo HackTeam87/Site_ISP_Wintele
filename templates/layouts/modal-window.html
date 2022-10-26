@@ -1,0 +1,32 @@
+  <!-- Modal -->
+  {% raw %}
+  <div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="text-center" id="exampleModalLabel">ВИБЕРІТЬ ВАШЕ МІСТО:</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="City" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+
+              <div class="row">
+                <div class="form-grp">
+                    <span class="badge bg-light price-btn" v-for="tab in tabs" v-bind:key="tab"
+                        v-bind:class="['active', { active: currentTab === tab }]"
+                        v-on:click="currentTab = tab">
+                        <a href="#step-2" class=""> {{ tab.location }}</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endraw %}

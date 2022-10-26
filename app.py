@@ -16,8 +16,9 @@ app = CAPTCHA.init_app(app)
 
 
 bot_token = os.getenv('BOT_TOKEN', default=None)
-bot = telebot.TeleBot(bot_token)
+bot = telebot.TeleBot(bot_token, parse_mode='MARKDOWN')
 chat_id = os.getenv('CHAT_ID', default=None)
+
 
 
 
@@ -27,7 +28,7 @@ def get_db_connection():
     return conn
 
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
      ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
      ip_title = ' Ваш IP: ' + ip
@@ -81,7 +82,7 @@ def contact():
     
 
 
-@app.route("/get_contact",methods = ['POST'])
+@app.route("/get_contact",methods=['GET','POST'])
 def get_contact():       
     if request.method == 'POST':
         name = request.form.get('name')
@@ -92,9 +93,11 @@ def get_contact():
         c_text = request.form.get('captcha-text')
 
         m = f''' 
-            Заявка з сайту Wintele.com.ua\n
-            \n ФИО: {name}  Причина: {options}
-            \n Телефон: {phone}  Почта: {email}
+            # Заявка з сайту Wintele.com.ua
+            1.Ім'я: {name}  
+            2.Тема: {options}
+            3.Телефон: {phone}  
+            4.Почта: {email}
           ''' 
 
         if CAPTCHA.verify(c_text, c_hash) and len(name):
@@ -104,6 +107,25 @@ def get_contact():
         else:
             flash('Введіть captcha', 'alert-danger')
             return redirect(url_for('contact')) 
+
+
+@app.route("/get_user_contact",methods=['GET','POST'])
+def get_user_contact():       
+    if request.method == 'POST':
+        name = request.form.get('name')
+        subname = request.form.get('subname')
+        selected_price = request.form.get('selected_price')
+        phone = request.form.get('phone')
+        m = f''' 
+            # Заявка з сайту Wintele.com.ua
+            1.Ім'я: {name}  
+            2.Прізвище: {subname}
+            3.Телефон: {phone}
+          ''' 
+        bot.send_message(chat_id, m)
+        flash('Дякую! Ми зателефонуємо Вам найближчим часом.', 'alert-primary')
+        return redirect(url_for('index'))
+
 
 
 @app.route("/test")
@@ -116,4 +138,4 @@ def test2():
 
 
 if __name__ == "__main__":
-    app.run(debug="True", host="0.0.0.0")
+    app.run(debug="True")

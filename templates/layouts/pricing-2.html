@@ -1,0 +1,294 @@
+<section class="pt-80 pb-60" style="background-color:#ebeff2;">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="wrapper" id="dynamic-price">
+                {% raw %}
+                <form action="/get_user_contact" method="post" class="contact-form" enctype="multipart/form-data">
+                    <div class="row row-2 mb-30">
+                        <section>
+                            <div class="pr-table-w card">
+                                <div class="center-line">
+                                    <a href="#" class="scroll-icon">1</a>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mt-30 mb-40">
+                                        <h3 class="card-title text-center">Виберіть населений пункт:</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-grp">
+                                            <span class="badge bg-light price-btn" v-for="tab in tabs" v-bind:key="tab"
+                                                v-bind:class="['active', { active: currentTab === tab }]"
+                                                v-on:click="currentTab = tab">
+                                                <a href="#step-2" class=""> {{ tab.location }}</a>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div id="step-2"></div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+
+                    <div v-for="tab in tabs" v-if="tab.id === currentTab.id">
+                        <div class="row row-2 mb-30">
+                            <section>
+                                <div class="pr-table-w card">
+                                    <div class="center-line">
+                                        <a href="#" class="scroll-icon">2</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mt-30 mb-40">
+                                            <h3 class="card-title text-center">Виберіть тариф:</h3>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead style="width:100%;">
+                                                    <span>
+                                                        <h5 class="title text-center check_1">{{tab.location}}</h5>
+                                                    </span>
+                                                    <tr :class="{check_1: checked}">
+                                                        <th scope="col" style="width: 2%;">
+                                                            &#10003;
+                                                        </th>
+                                                        <th scope="col">Швидкість</th>
+                                                        <th scope="col">Ціна</th>
+                                                        <th scope="col">Тариф</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="i in tab.prices">
+
+                                                        <td class="table-info check_1">
+                                                            <a href="#step-3">
+                                                                <div class="form-check p-10">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="selected_price"
+                                                                        v-bind:value="{'name': i.name}"
+                                                                        v-model.number="price" @click="Checker">
+                                                                </div>
+                                                            </a>
+                                                        </td>
+
+                                                        <td><span>{{i.speed}}</span>мб/с</td>
+                                                        <td><span>{{i.price}}</span>грн/міс</td>
+                                                        <td><span>{{i.name}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="step-3"></div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="row row-2 mb-30">
+                            <section>
+                                <div class="pr-table-w card">
+                                    <div class="center-line">
+                                        <a href="#" class="scroll-icon">3</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mt-30 mb-40">
+                                            <h3 class="card-title text-center">Ваші персональні дані:</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-grp">
+                                                    <span>
+                                                        <h5 class="title text-center check_1" v-if="price.name">Тариф:
+                                                            {{price.name}}</h5>
+                                                    </span>
+                                                    <!-- <input :value="price.name" name="selected_price" type="text" id="selected_price" autocomplete="off" readonly> -->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-grp">
+                                                    <span></span>
+                                                    <input name="name" type="text" id="name" autocomplete="off"
+                                                        required>
+                                                    <label for="name">Ім'я</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-grp">
+                                                    <input name="subname" type="text" id="name" autocomplete="off"
+                                                        required>
+                                                    <label for="subname">Прізвище</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-grp">
+                                                    <input name="phone" type="number" id="phone" autocomplete="off"
+                                                        required>
+                                                    <label for="phone">Телефон</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-5 col-lg-4 mx-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="flexCheckChecked" checked>
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        <a href="/" target="">Політика приватності</a>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="flexCheckChecked" checked>
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        <a href="https://wintele.golden.net.ua/static/docs/contract_offerta.pdf"
+                                                            target="_blank">Договір публічної оферти</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-5 col-lg-4 mx-auto">
+                                                <button class="btn btn-primary" type="submit"
+                                                    style="text-align:center;">Підключитись</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+                <section>
+                    <!-- Modal -->
+                    <div class="modal fade" id="cityModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h5 class="" id="exampleModalLabel"> Виберіть населений пункт</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <input v-model="search" placeholder="Введіть населений пункт" type="text"
+                                            class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-grp">
+                                            <ul v-for="city in filteredItems"
+                                                v-bind:class="['active', { active: currentTab === city}]"
+                                                v-bind:key="city" v-on:click="currentTab = city">
+                                                <li data-bs-dismiss="modal">
+                                                    <a href="#step-2" class="link-city">{{ city.location }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {% endraw %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+
+    new Vue({
+        el: "#dynamic-price",
+        data: {
+            search: '',
+            price: 1,
+            checked: false,
+            currentTab: "0",
+            tabs: [
+                {
+                    'id': 0,
+                    'location': 'Гайсин багатоповерхівки',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Стартовый', 'price': 99, 'speed': 20 },
+                        { 'price_id': 2, 'name': 'Оптимальный', 'price': 149, 'speed': 50 },
+                        { 'price_id': 3, 'name': 'Турбо', 'price': 179, 'speed': 100 }
+                    ]
+                },
+
+                {
+                    'id': 1,
+                    'location': 'Гайсин приватний сектор',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+                    ]
+                },
+
+                {
+                    'id': 2,
+                    'location': 'с.Крутогорб',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+                    ]
+                },
+
+                {
+                    'id': 3,
+                    'location': 'с.Карбівка',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+                    ]
+                },
+                {
+                    'id': 4,
+                    'location': 'с.Куна',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+                    ]
+                },
+                {
+                    'id': 5,
+                    'location': 'с.Кисляк',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+                    ]
+                },
+
+                {
+                    'id': 6,
+                    'location': "с. Мар'янівка",
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Лайт', 'price': 149, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'Мега', 'price': 189, 'speed': 100 },
+                    ]
+                },
+
+                {
+                    'id': 7,
+                    'location': 'с.Михайлівка',
+                    'prices': [
+                        { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
+                        { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
+                    ]
+                },
+            ],
+        },
+        methods: {
+            Checker: function () {
+                this.checked = !this.checked;
+            }
+        },
+        computed: {
+            filteredItems() {
+                return this.tabs.filter((i) => { return !this.search || (i.location).toUpperCase().indexOf(this.search.toUpperCase()) !== -1 })
+            }
+        }
+    });
+
+</script>

@@ -4,17 +4,16 @@
 {% include 'layouts/slider.html' %}
 
 <section class="pt-80 pb-60" style="background-color:#ebeff2;">
-
-
   <div class="container-fluid">
+
     <div class="row justify-content-center">
 
       <div class="wrapper" id="dynamic-price">
         {% raw %}
-        <form action="/get_contact" method="post" class="contact-form" enctype="multipart/form-data">
+        <form action="/get_user_contact" method="post" class="contact-form" enctype="multipart/form-data">
           <div class="row row-2 mb-30">
             <section>
-              <div class="pl-40 pr-20 card">
+              <div class="pr-table-w card">
                 <div class="center-line">
                   <a href="#" class="scroll-icon">1</a>
                 </div>
@@ -24,9 +23,9 @@
                   </div>
                   <div class="row">
                     <div class="form-grp">
-                      <span class="badge bg-light btn" v-for="tab in tabs" v-bind:key="tab"
+                      <span class="badge bg-light price-btn" v-for="tab in tabs" v-bind:key="tab"
                         v-bind:class="['active', { active: currentTab === tab }]" v-on:click="currentTab = tab">
-                        <a href="#step-2" class=""> {{ tab.location }}</a>
+                        <a href="#step-2" class="" > {{ tab.location }}</a>
                       </span>
 
                     </div>
@@ -37,10 +36,10 @@
           </div>
 
 
-          <!-- <blog-post  v-bind:is="currentTabComponent"></blog-post> -->
-          <div class="row row-2 mb-30" id="step-2" v-for="tab in tabs" v-if="tab.id === currentTab.id">
+          <div v-for="tab in tabs" v-if="tab.id === currentTab.id">
+          <div class="row row-2 mb-30" id="step-2">
             <section>
-              <div class="pl-40 pr-20 card">
+              <div class="pr-table-w card">
                 <div class="center-line">
                   <a href="#" class="scroll-icon">2</a>
                 </div>
@@ -49,10 +48,13 @@
                     <h3 class="card-title text-center">ВИБЕРІТЬ ТАРИФНИЙ ПЛАН:</h3>
                   </div>
                   <div class="table-responsive">
-                    <table class="table table-hover table-sm">
-                      <thead class="table-light">
+                    <table class="table table-hover">
+                      <thead  style="width:100%;">
+                        <span><h5 class="title text-center check_1">{{tab.location}}</h5></span>
                         <tr :class="{check_1: checked}">
-                          <th scope="col"># {{tab.location}}</th>
+                          <th scope="col" style="width: 2%;">
+                            &#10003;
+                          </th>
                           <th scope="col">Швидкість</th>
                           <th scope="col">Ціна</th>
                           <th scope="col">Тариф</th>
@@ -60,13 +62,18 @@
                       </thead>
                       <tbody>
                         <tr v-for="i in tab.prices">
-                          <td>
+                         
+                          <td class="table-info">
+                            <a href="#step-3">
                             <div class="form-check p-10">
-                              <a href="#step-3">
-                                <input class="form-check-input" type="radio" name="price_id" @click="Checker">
-                              </a>   
+                             
+                                <input class="form-check-input" type="radio" name="selected_price"
+                                  v-bind:value="{'name': i.name}" v-model="price" @click="Checker">
+                                
                             </div>
+                          </a>
                           </td>
+                       
                           <td><span>{{i.speed}}</span>мб/с</td>
                           <td><span>{{i.price}}</span>грн/міс</td>
                           <td><span>{{i.name}}</span></td>
@@ -82,9 +89,9 @@
             </section>
           </div>
 
-          <div class="row row-2 mb-30" id="step-3" v-if="checked">
+          <div class="row row-2 mb-30"   id="step-3">
             <section>
-              <div class="pl-40 pr-20 card">
+              <div class="pr-table-w card">
                 <div class="center-line">
                   <a href="#" class="scroll-icon">3</a>
                 </div>
@@ -94,33 +101,41 @@
                   </div>
 
                   <div class="row">
-
-                    <div class="col-md-4">
-                        <div class="form-grp">
-                            <input name="name" type="text" id="name" autocomplete="off" required>
-                            <label for="name">Ім'я</label>
-                        </div>
+                    <div class="col-md-12">
+                      <div class="form-grp">
+                        <span><h5 class="title text-center check_1">Тариф: {{price.name}}</h5></span>
+                        <!-- <input :value="price.name" name="selected_price" type="text" id="selected_price" autocomplete="off" readonly> -->
+                      </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-grp">
-                          <input name="name" type="text" id="name" autocomplete="off" required>
-                          <label for="name">Ім'я</label>
+                        <span></span>
+                        <input name="name" type="text" id="name" autocomplete="off" required>
+                        <label for="name">Ім'я</label>
                       </div>
-                  </div>
+                    </div>
                     <div class="col-md-4">
-                        <div class="form-grp">
-                            <input name="phone" type="number" id="phone" autocomplete="off" required>
-                            <label for="phone">Телефон</label>
-                        </div>
+                      <div class="form-grp">
+                        <input name="subname" type="text" id="name" autocomplete="off" required>
+                        <label for="subname">Прізвище</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-grp">
+                        <input name="phone" type="number" id="phone" autocomplete="off" required>
+                        <label for="phone">Телефон</label>
+                      </div>
                     </div>
                     <div class="col-sm-12 col-md-5 col-lg-4 mx-auto">
-                      <button class="btn btn-primary" type="button" style="text-align:center;">Надіслати</button>
+                      <button class="btn btn-primary" type="submit" style="text-align:center;">Надіслати</button>
                     </div>
-                </div>
+                  </div>
                 </div>
               </div>
             </section>
           </div>
+
+        </div>
 
         </form>
         {% endraw %}
@@ -138,6 +153,8 @@
 
     el: "#dynamic-price",
     data: {
+      location:'',
+      price: {},
       checked: false,
       currentTab: "0",
       tabs: [
@@ -150,7 +167,7 @@
             { 'price_id': 3, 'name': 'Турбо', 'price': 179, 'speed': 100 }
           ]
         },
-  
+
         {
           'id': 1,
           'location': 'Гайсин приватний сектор',
@@ -205,7 +222,7 @@
 
         {
           'id': 7,
-          'location': 'с.Михпйлівка',
+          'location': 'с.Михайлівка',
           'prices': [
             { 'price_id': 1, 'name': 'Макс', 'price': 179, 'speed': 50 },
             { 'price_id': 2, 'name': 'МегаМакс', 'price': 219, 'speed': 100 },
@@ -215,7 +232,7 @@
     },
     methods: {
       Checker: function () {
-        this.checked = !this.checked;
+        this.checked = true;
       }
     },
     computed: {

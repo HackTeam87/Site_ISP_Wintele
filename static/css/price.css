@@ -19,7 +19,7 @@
 }
 .wrapper{
   max-width: 1080px;
-  margin: 50px auto;
+  /* margin: 50px auto; */
   padding: 0 20px;
   position: relative;
 }
@@ -66,12 +66,13 @@
 }
 .row section .icon,
 .center-line .scroll-icon{
+  top: -65;
   position: absolute;
   background: #f2f2f2;
-  height: 55px;
-  width: 55px;
+  height: 58px;
+  width: 58px;
   text-align: center;
-  line-height: 55px;
+  line-height: 58px;
   border-radius: 50%;
   color: #3ea0e2;
   font-size: 17px;
@@ -80,7 +81,7 @@
 
 .center-line .scroll-icon{
   /* bottom: 0px; */
-  left: 50%;
+  /* left: 50%; */
   font-size: 25px;
   transform: translateX(-50%);
 }
@@ -122,12 +123,81 @@
   transform: scale(0.97);
 }
 
+/* ----------------price-btn------------- */
+.price-btn{
+  user-select: none;
+  -moz-user-select: none;
+  background: var(--primary-color) none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2rem;
+  margin-bottom: 0;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: all 0.3s ease 0s;
+  vertical-align: middle;
+  white-space: break-spaces;
+position: relative;
+z-index: 1;
+overflow: hidden;
+}
+
+.price-btn a {padding: 16px 30px;}
+
+.price-btn::after {
+  content: "\f061";
+  display: block;
+  font-family: "Font Awesome 5 Pro";
+  margin-left: 10px;
+  font-size: 11px;
+  line-height: 1;
+  position: relative;
+  top: -1px;
+}
+
+.price-btn::before {
+  content: "";
+  position: absolute;
+  -webkit-transition-duration: 800ms;
+  transition-duration: 800ms;
+  width: 200%;
+  height: 200%;
+  top: 110%;
+  left: 50%;
+  background: var(--secondary-color);
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  z-index: -1;
+}
+.price-btn:hover:before {
+  top: -40%;
+}
+.price-btn:hover,
+.transparent-btn:hover {
+color: #fff;
+}
+
+/* ----------------end-price-btn----------*/
+
+/* ----------------link-city------------ */
+.link-city{color: var(--body-text-color);font-size: 1.1em; padding: 1px;}
+.link-city:hover{color: var(--primary-color);border-bottom: 3px solid var(--secondary-color);font-size: 1.15em;margin-bottom: 1px;}
+/* ----------------end-link-city---------*/
 
 /* ----------------checkbox------------- */
 
 .check_1{
   color: #3ea0e2;
-  font-weight: lighter;
+  font-weight: bold;
 }
 
 .form-check-input:checked{
@@ -145,11 +215,16 @@
 
 /* ------------------endcheckbox--------- */
 
+.pr-table-w{
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
 
 
 @media(max-width: 790px){
   .wrapper .center-line{
-    left: 40px;
+    left: 10px;
   }
   .wrapper .row{
     margin: 30px 0 3px 60px;
@@ -172,5 +247,12 @@
   }
   .wrapper .row{
     margin: 10px 0;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 440px) {
+  .pr-table-w{
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
