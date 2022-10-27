@@ -9,22 +9,8 @@
                     <div class="header-top-left">
                         <ul>
                             <li class="d-none d-lg-flex"><i class="flaticon-email"></i>info@wintele.com.ua</li>
-                            <li class="d-none d-lg-flex"><i class="flaticon-clock"></i>з 08:00 до 21:00 (без вихідних)
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-4 col-sm-4">
-                    <div class="header-top-right">
-                        <ul>
-                            <li class="header-social">
-                                <a class="" data-bs-toggle="modal" data-bs-target="#cityModal" id="dynamic-city">
-                                    <i class="flaticon-location">Локація</i>
-
-                                </a>
-                            </li>
-
-                            <li class="header-social">
+                            <li class="d-none d-lg-flex"><i class="flaticon-clock"></i>з 08:00 до 21:00 (без вихідних)</li>
+                            <li class="d-none d-lg-flex">
                                 <a href="/"><i class="fab fa-telegram"></i></a>
                                 <a href="/"><i class="fab fa-viber"></i></a>
                                 <a target="_blank" href="https://api.2ip.ua/geo.json?ip={{ip}}" title="{{ip_title}}"
@@ -32,7 +18,19 @@
                                     {{ip_title}}
                                 </a>
                             </li>
-
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-4 col-sm-4">
+                    <div class="header-top-right">
+                        <ul>
+                            {% if loc %}
+                            <li class="header-social">
+                                <a class="" data-bs-toggle="modal" data-bs-target="#cityModal" id="dynamic-city">
+                                    <i class="flaticon-location">Локація</i>
+                                </a>
+                            </li>
+                            {% endif %}
                             <li class="header-user-info" id="LC">
                                 <i class="flaticon-businessman"></i>
                                 <a href="https://my.wintele.com.ua/" style="color:whitesmoke;font-size:small;">Особистий

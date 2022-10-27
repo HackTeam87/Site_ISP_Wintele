@@ -31,13 +31,14 @@ def get_db_connection():
 @app.route("/", methods=['GET','POST'])
 def index():
      ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-     ip_title = ' Ваш IP: ' + ip
+     ip_title = f' Ваш IP: {ip}'
 
      conn = get_db_connection()
      posts = conn.execute('SELECT * FROM posts LIMIT 2').fetchall()
      shop = conn.execute('SELECT * FROM shop').fetchall()
      conn.close()
-     return render_template('index.html', ip=ip, ip_title=ip_title, shop=shop, posts=posts)
+     loc = True
+     return render_template('index.html', ip=ip, ip_title=ip_title, shop=shop, posts=posts, loc=loc)
 
 @app.route("/about-us")
 def about_us():
@@ -116,6 +117,7 @@ def get_user_contact():
         subname = request.form.get('subname')
         selected_price = request.form.get('selected_price')
         phone = request.form.get('phone')
+
         m = f''' 
             # Заявка з сайту Wintele.com.ua
             1.Ім'я: {name}  

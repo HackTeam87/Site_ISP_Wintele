@@ -28,7 +28,7 @@
   height: 100%;
   width: 4px;
   background: #3ea0e2;
-  left: 1%;
+  left: -3%;
   top: 20px;
   transform: translateX(-50%);
 }
@@ -189,8 +189,16 @@ color: #fff;
 /* ----------------end-price-btn----------*/
 
 /* ----------------link-city------------ */
-.link-city{color: var(--body-text-color);font-size: 1.1em; padding: 1px;}
-.link-city:hover{color: var(--primary-color);border-bottom: 3px solid var(--secondary-color);font-size: 1.15em;margin-bottom: 1px;}
+.link-city{
+           color: var(--body-text-color);
+           font-size: 1.1em; padding: 3px;
+           transition: all 1s ease;
+          }
+.link-city:hover{
+                 color: var(--primary-color);
+                 border-bottom: 3px solid var(--secondary-color);
+                 font-size: 1.15em;margin-bottom: 1px;
+                }              
 /* ----------------end-link-city---------*/
 
 /* ----------------checkbox------------- */
