@@ -32,9 +32,7 @@
                             <a href="/post-detail/{{post['id']}}"><img src="{{url_for('static', filename='img/blog/')+post['img_link']}}" alt=""></a>
                         </div>
                         <ul class="blog-post-meta">
-                            <li><i class="far fa-folder-open"></i>Network</li>
-                            <li><i class="flaticon-user"></i> <a href="/post-detail/{{post['id']}}">SomeOneAdmin</a></li>
-                            <li><i class="flaticon-calendar"></i>{{ post['created'] }}</li>
+                            <li><i class="flaticon-calendar"></i><a href="/post-detail/{{post['id']}}">{{ post['created'] }}</a></li>
                         </ul>
                         <div class="standard-blog-content">
                             <h3 class="title"><a href="/post-detail/{{post['id']}}">{{ post['title'] }}</a></h3>

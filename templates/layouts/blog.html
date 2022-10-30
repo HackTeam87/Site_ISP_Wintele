@@ -4,7 +4,7 @@
         <div class="row align-items-end justify-content-between mb-60">
             <div class="col-xl-5 col-lg-6 col-md-8">
                 <div class="section-title">
-                    <h2 class="title">Новини і статті</h2>
+                    <h3 class="title">Новини і статті</h3>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4">
@@ -22,9 +22,7 @@
                     </div>
                     <div class="blog-post-content">
                         <ul class="blog-post-meta">
-                            <li><i class="far fa-folder-open"></i> Network</li>
-                            <li><i class="flaticon-user"></i> <a href="/post-detail/{{post['id']}}">Some-One-Admin</a></li>
-                            <li><i class="flaticon-calendar"></i>{{ post['created'] }}</li>
+                            <li><i class="flaticon-calendar"></i><a href="/post-detail/{{post['id']}}">{{ post['created'] }}</a></li>
                         </ul>
                         <h3 class="title"><a href="/post-detail/{{post['id']}}">{{ post['title'] }}</a></h3>
                         <a href="/post-detail/{{post['id']}}" class="btn transparent-btn">Детальніше</a>

@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+{% block content %} 
+
+   <!-- 404-area -->
+   <section class="error-area pt-120 pb-50">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                <div class="error-img text-center mb-40">
+                    <img src="{{url_for('static', filename='img/images/404.png')}}" alt="">
+                </div>
+                <div class="error-content text-center">
+                    <h3 class="title">Сторінка не знайдена</h3>
+                    <a href="/" class="btn">Повернутися на головну</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 404-area-end -->
+
+
+{% endblock %}

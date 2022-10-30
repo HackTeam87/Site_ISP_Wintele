@@ -129,6 +129,14 @@ def get_user_contact():
         return redirect(url_for('index'))
 
 
+# ERROR
+@app.errorhandler(404)
+def pageNotFound(error):
+    return render_template('pages/404.html', title='Page not found')
+
+
+
+
 
 @app.route("/test")
 def test():
