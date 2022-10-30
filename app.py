@@ -4,7 +4,6 @@ import requests
 import telebot
 from flask import Flask, render_template, url_for, request, redirect, flash
 from config import Configuration
-from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
 from flask_simple_captcha import CAPTCHA
 
 
